@@ -2088,8 +2088,7 @@ func findNetworkInterfacePermissions(ctx context.Context, conn *ec2.Client, inpu
 	for pages.HasMorePages() {
 		page, err := pages.NextPage(ctx)
 
-		// TODO: Need to identify actual error code
-		if tfawserr.ErrCodeEquals(err, "InvalidNetworkInterfacePermissionID.NotFound") {
+		if tfawserr.ErrCodeEquals(err, "InvalidPermissionID.NotFound") {
 			return nil, &retry.NotFoundError{
 				LastError:   err,
 				LastRequest: input,
