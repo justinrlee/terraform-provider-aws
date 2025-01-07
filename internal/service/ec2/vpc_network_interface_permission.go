@@ -21,13 +21,15 @@ import (
 	"github.com/hashicorp/terraform-provider-aws/names"
 )
 
-// Reference: resourceAMILaunchPermission
 // @SDKResource("aws_network_interface_permission", name="Network Interface Permission")
 func resourceNetworkInterfacePermission() *schema.Resource {
 	return &schema.Resource{
 		CreateWithoutTimeout: resourceNetworkInterfacePermissionCreate,
 		DeleteWithoutTimeout: resourceNetworkInterfacePermissionDelete,
 		ReadWithoutTimeout:   resourceNetworkInterfacePermissionRead,
+		Importer: &schema.ResourceImporter{
+			StateContext: schema.ImportStatePassthroughContext,
+		},
 
 		Schema: map[string]*schema.Schema{
 			names.AttrAccountID: {
