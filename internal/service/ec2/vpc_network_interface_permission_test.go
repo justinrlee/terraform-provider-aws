@@ -42,6 +42,12 @@ func TestAccVPCNetworkInterfacePermission_basic(t *testing.T) {
 					resource.TestCheckResourceAttrSet(resourceName, "permission"),
 				),
 			},
+			{
+				ResourceName:            resourceName,
+				ImportState:             true,
+				ImportStateVerify:       true,
+				ImportStateVerifyIgnore: []string{names.AttrSkipDestroy},
+			},
 		},
 	})
 }
@@ -72,12 +78,14 @@ func TestAccVPCNetworkInterfacePermission_disappears(t *testing.T) {
 	})
 }
 
-func TestAccVPCNetworkInterfacePermission_snapshotOwnerExpectError(t *testing.T) {
+func TestAccVPCNetworkInterfacePermission_ownerExpectError(t *testing.T) {
 	ctx := acctest.Context(t)
 	rName := sdkacctest.RandomWithPrefix(acctest.ResourcePrefix)
 
 	resource.ParallelTest(t, resource.TestCase{
-		PreCheck:                 func() { acctest.PreCheck(ctx, t) },
+		PreCheck:                 func() {
+			acctest.PreCheck(ctx, t) 
+		},
 		ErrorCheck:               acctest.ErrorCheck(t, names.EC2ServiceID),
 		ProtoV5ProviderFactories: acctest.ProtoV5ProviderFactories,
 		CheckDestroy:             testAccCheckVPCNetworkInterfacePermissionDestroy(ctx),
