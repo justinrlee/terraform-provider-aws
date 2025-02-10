@@ -62,6 +62,10 @@ func (p *servicePackage) FrameworkResources(ctx context.Context) []*types.Servic
 			Name:    "Instance Metadata Defaults",
 		},
 		{
+			Factory: newNetworkInterfacePermission,
+			Name:    "Network Interface Permission",
+		},
+		{
 			Factory: newResourceSecurityGroupVPCAssociation,
 			Name:    "Security Group VPC Association",
 		},
